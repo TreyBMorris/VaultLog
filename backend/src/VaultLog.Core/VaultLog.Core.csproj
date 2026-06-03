@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- VaultLog.Core has zero external dependencies (pure domain logic). -->
+
+</Project>

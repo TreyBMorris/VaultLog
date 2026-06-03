@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/VaultLog.API/VaultLog.API.csproj" />
+    <Project Path="src/VaultLog.Core/VaultLog.Core.csproj" />
+    <Project Path="src/VaultLog.Infrastructure/VaultLog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/VaultLog.UnitTests/VaultLog.UnitTests.csproj" />
+  </Folder>
+</Solution>

@@ -88,6 +88,20 @@ http-client.private.env.json
 
 
 
+# JetBrains IDE project folder (Rider/IntelliJ) — ignore the whole thing
+.idea/
+
+# .NET build output
+# These rules are recursive — a single bin/ and obj/ at the repo root
+# covers every project under backend/src and backend/tests. No per-project
+# .gitignore is needed.
+[Bb]in/
+[Oo]bj/
+*.user
+project.lock.json
+project.nuget.cache
+*.nuget.dgspec.json
+
 # Secrets
 appsettings.Development.json
 .env
