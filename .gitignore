@@ -47,3 +47,6 @@ secrets.json
 .vscode/
 http-client.private.env.json
 
+# Angular environments containing local keys
+environment.ts
+environment.development.ts
