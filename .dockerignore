@@ -1,0 +1,15 @@
+# Frontend
+web/node_modules
+web/dist
+web/.angular
+
+# Git
+.git
+.github
+
+# Docs
+*.md
+*.txt
+
+# Backend tests
+backend/tests
