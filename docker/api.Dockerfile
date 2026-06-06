@@ -1,14 +1,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY backend/src/VaultLog.slnx ./
+COPY backend/Directory.Build.props backend/Directory.Packages.props ./
 COPY backend/src/VaultLog.API/VaultLog.API.csproj ./VaultLog.API/
 COPY backend/src/VaultLog.Core/VaultLog.Core.csproj ./VaultLog.Core/
 COPY backend/src/VaultLog.Infrastructure/VaultLog.Infrastructure.csproj ./VaultLog.Infrastructure/
 
-RUN dotnet restore VaultLog.slnx
+RUN dotnet restore VaultLog.API/VaultLog.API.csproj
 
-COPY backend/src/ .
+COPY backend/src/ ./
 
 RUN dotnet publish VaultLog.API/VaultLog.API.csproj -c Release -o /app/publish --no-restore
 
