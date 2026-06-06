@@ -36,24 +36,3 @@ but will not be used for most of the code. "Old Skool" coding.
 something similar. (Or something that can be easily deployed on my homelab)
 - Potentially be open for OSS contributions. Not sure about this one,
 but an interesting idea no doubt.
-
-## Tech Stack
-
-- .NET
-  - FastEndpoints - Endpoint routing to replace controllers
-  - EF Core - ORM
-  - PostgreSQL - Database
-  - FluentValidation
-
-- Angular
-  - Chart.js
-
-- Tools
-  - Valkey - Caching
-  - Authentik - SSO and JWT for the API
-  - Docker
-
-- External APIs
-  - TMDB - Movies and TV shows
-  - IGDB - Games
-  - Open Library - Books
