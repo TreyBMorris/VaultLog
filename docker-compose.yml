@@ -1,19 +1,4 @@
-# Local development infrastructure for VaultLog.
-# Run the .NET app on the host (`dotnet run`) against these ports.
-# Start everything with: docker compose up -d
-# First-time Authentik setup: http://localhost:9000/if/flow/initial-setup/
-
 name: vaultlog
-
-# Authentik needs two processes (server + worker) sharing the same config.
-x-authentik-env: &authentik-env
-  AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:-dev-insecure-change-me}
-  AUTHENTIK_POSTGRESQL__HOST: postgres
-  AUTHENTIK_POSTGRESQL__NAME: authentik
-  AUTHENTIK_POSTGRESQL__USER: authentik
-  AUTHENTIK_POSTGRESQL__PASSWORD: ${AUTHENTIK_POSTGRES_PASSWORD:-authentik}
-  AUTHENTIK_REDIS__HOST: valkey
-  AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
 
 services:
   postgres:
@@ -23,57 +8,24 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-vaultlog}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vaultlog}
       POSTGRES_DB: ${POSTGRES_DB:-vaultlog}
-      # Used by the init script to create Authentik's separate database.
-      AUTHENTIK_DB_PASSWORD: ${AUTHENTIK_POSTGRES_PASSWORD:-authentik}
     ports:
-      # Host 5433 (5432 is taken by a native Postgres); container stays 5432.
       - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-vaultlog}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  valkey:
-    image: valkey/valkey:9.1-alpine
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
-      - valkey-data:/data
-
-  authentik-server:
-    image: ghcr.io/goauthentik/server:${AUTHENTIK_TAG:-2026.5.2}
-    restart: unless-stopped
-    command: server
-    environment: *authentik-env
-    volumes:
-      - authentik-media:/media
-    ports:
-      - "9000:9000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      valkey:
-        condition: service_started
-
-  authentik-worker:
-    image: ghcr.io/goauthentik/server:${AUTHENTIK_TAG:-2026.5.2}
-    restart: unless-stopped
-    command: worker
-    environment: *authentik-env
-    volumes:
-      - authentik-media:/media
-    depends_on:
-      postgres:
-        condition: service_healthy
-      valkey:
-        condition: service_started
+      - redis-data:/data
 
 volumes:
   postgres-data:
-  valkey-data:
-  authentik-media:
+  redis-data:
