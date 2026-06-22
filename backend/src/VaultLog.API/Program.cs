@@ -15,6 +15,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
     };
+    
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+            return Task.CompletedTask;
+        }
+    };
 });
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
@@ -22,6 +31,7 @@ builder.Services.AddFastEndpoints();
 var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseFastEndpoints();
 
 app.Run();
