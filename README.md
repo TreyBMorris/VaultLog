@@ -29,10 +29,9 @@ one central logger and reviewer.
 
 ## Goals
 
-- Be 75%+ free of AI usage. AI can be used for code reviews and writing tests,
-  but will not be used for most of the code. "Old Skool" coding.
+- Be around 75%+ free of AI usage. AI can be used for code reviews and writing tests,
+  but will not be used for most of the code.  
 - Learn new tools
 - Learn to create a deployable app in Docker image that can be hosted in GHCR or
   something similar. (Or something that can be easily deployed on my homelab)
-- Potentially be open for OSS contributions. Not sure about this one,
-  but an interesting idea no doubt.
+  - Dokploy will come into play here to learn about CI/CD
