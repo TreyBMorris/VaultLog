@@ -2,11 +2,8 @@ using FastEndpoints;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using StackExchange.Redis;
 using VaultLog.Infrastructure.DependencyInjection;
-using VaultLog.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +12,12 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHealthChecks()
     .AddRedis(
-        builder.Configuration["Redis:ConnectionString"]!,
+        builder.Configuration["Redis:ConnectionString"] ?? "localhost",
         name: "redis",
         tags: ["ready"])
     .AddNpgSql(
-        builder.Configuration.GetConnectionString("DefaultConnection")!,
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Missing ConnectionStrings:DefaultConnection configuration."),
         name: "postgres",
         tags: ["ready"]);
 
@@ -34,7 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
     };
-    
+
     options.Events = new JwtBearerEvents
     {
         OnAuthenticationFailed = context =>

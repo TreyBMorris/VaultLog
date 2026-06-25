@@ -10,7 +10,7 @@ namespace VaultLog.Infrastructure.Caching;
 public static class CachingExtensions
 {
     private static readonly TimeSpan DefaultTtl = TimeSpan.FromMinutes(30);
-    
+
     public static async Task AddRecordAsync<T>(this RedisCachingClient client, string key, T data, TimeSpan? ttl = null)
     {
         var prefixedKey = (RedisKey)client.FormatKey(key);
@@ -34,7 +34,7 @@ public static class CachingExtensions
         var prefixedKey = (RedisKey)client.FormatKey(key);
         await client.Cache.KeyDeleteAsync(prefixedKey);
     }
-    
-    private static Expiration ToExpiration(TimeSpan? ttl) =>
-        new Expiration(ttl ?? DefaultTtl);
+
+    private static TimeSpan ToExpiration(TimeSpan? ttl) =>
+        ttl ?? DefaultTtl;
 }
