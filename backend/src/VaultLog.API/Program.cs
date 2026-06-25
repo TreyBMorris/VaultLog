@@ -54,5 +54,5 @@ app.UseFastEndpoints();
 app.MapHealthChecks("/healthz", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-}).RequireAuthorization();
+});
 app.Run();
