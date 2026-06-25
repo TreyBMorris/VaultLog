@@ -12,7 +12,7 @@ and TrueNAS.
 I wanted to create an application to learn some new things, like setting up
 an authentication provider (in this case Authentik) for using JWTs for authn/authz.
 
-I also wanted to play around more with FastEndpoints and try out ValKey for caching.
+I also wanted to play around more with FastEndpoints.
 
 The goal of this is to also be 75%+ free of AI. I might use it for reviewing or
 if I really cannot figure something out, but the main goal is to use AI
@@ -29,10 +29,9 @@ one central logger and reviewer.
 
 ## Goals
 
-- Be 75%+ free of AI usage. AI can be used for code reviews and writing tests,
-but will not be used for most of the code. "Old Skool" coding.
+- Be around 75%+ free of AI usage. AI can be used for code reviews and writing tests,
+  but will not be used for most of the code.  
 - Learn new tools
 - Learn to create a deployable app in Docker image that can be hosted in GHCR or
-something similar. (Or something that can be easily deployed on my homelab)
-- Potentially be open for OSS contributions. Not sure about this one,
-but an interesting idea no doubt.
+  something similar. (Or something that can be easily deployed on my homelab)
+  - Dokploy will come into play here to learn about CI/CD
